@@ -1,4 +1,6 @@
 
+
+
 #include <SoftwareSerial.h>
 #include <Rfid134.h>
 
@@ -12,7 +14,7 @@
 //
 class RfidNotify
 {
-public:
+public:       //funcion tipica del microprocesador
   static void OnError(Rfid134_Error errorCode)
   {
     // see Rfid134_Error for code meaning
@@ -20,12 +22,13 @@ public:
     Serial.print("Com Error ");
     Serial.println(errorCode);
   }
-
+  
+              //funcion tipica del microprocesador (OnPacketRead averiguar)
   static void OnPacketRead(const Rfid134Reading& reading)
   {
     char temp[8];
 
-    Serial.print("TAG: ");
+    Serial.print("TaG: ");
 
     // since print doesn't support leading zero's, use sprintf
     sprintf(temp, "%03u", reading.country);
@@ -79,7 +82,7 @@ void setup()
   //Serial1.begin(9600, SERIAL_8N2);
   // software ESP
   //secondarySerial.begin(9600, SWSERIAL_8N2);
-  tagReader.begin(9600, SWSERIAL_8N1);
+   tagReader.begin(9600, SWSERIAL_8N1);
 
   // software AVR, doesn't support 8N2, thus may not work
   //secondarySerial.begin(9600);
